@@ -19,7 +19,11 @@ public class UserDTO {
     @Size(min = 6, max = 200)
     private String password;
 
-    public UserDTO() {
+    @Deprecated
+    /**
+     * For frameworks, don't use it
+     */
+    protected UserDTO() {
     }
 
     public UserDTO(User user) {
