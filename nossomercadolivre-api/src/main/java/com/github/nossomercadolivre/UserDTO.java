@@ -1,10 +1,15 @@
 package com.github.nossomercadolivre;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.validation.constraints.*;
 import java.util.List;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static java.util.stream.Collectors.toList;
 
+
+@JsonInclude(NON_NULL)
 public class UserDTO {
     private Long id;
 

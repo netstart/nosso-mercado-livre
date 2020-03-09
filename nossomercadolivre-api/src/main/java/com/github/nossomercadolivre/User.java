@@ -18,6 +18,8 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID_USER")
     private Long id;
 
     @CreatedDate
@@ -66,10 +68,10 @@ public class User implements Serializable {
         return createdDate;
     }
 
-    @Deprecated
     /**
      * This atribute can't be modified
      */
+    @Deprecated
     private void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
