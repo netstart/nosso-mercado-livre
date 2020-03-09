@@ -1,7 +1,11 @@
 package com.github.nossomercadolivre;
 
+import com.github.nossomercadolivre.exception.CategoryAlreadyUsedException;
+import com.github.nossomercadolivre.exception.UsernameAlreadyUsedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 import static com.github.nossomercadolivre.CategoryDTO.toDTO;
 
@@ -16,6 +20,13 @@ public class CategoryService {
     }
 
     public CategoryDTO save(CategoryDTO categoryDTO) {
+
+        Optional<Object> one = categoryRepository.findOneByName(categoryDTO.getName());
+
+        categoryRepository.findOneByName(categoryDTO.getName()).ifPresent(existingCategory -> {
+            throw new CategoryAlreadyUsedException();
+        });
+
         Category category = new Category(categoryDTO.getName());
 
         categoryRepository.findById(categoryDTO.idCategoryMother()).ifPresent(c -> category.setCategoryMother(c));
