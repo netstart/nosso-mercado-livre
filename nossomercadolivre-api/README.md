@@ -5,6 +5,8 @@ Url to verify: http://localhost/api/ping
 
 Actuator: http://localhost/actuator
 
+Swegger: http://localhost/swagger-ui.html#/
+
 ---
 H2 console: http://localhost/h2-console
 
