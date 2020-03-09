@@ -1,36 +1,43 @@
 package com.github.nossomercadolivre;
 
-import com.github.nossomercadolivre.exception.InvalidPasswordException;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
-@Table
-public class User implements Serializable {
+@EntityListeners(AuditingEntityListener.class)
+public class User {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @CreatedDate
-    @NotNull
     @Column(updatable = false, nullable = false)
-    private Instant createdDate = Instant.now();
+    private Instant createdDate;
 
     @NotNull
     @NotEmpty
     @Email
-    @Size(min = 5, max = 100)
+    @Size(max = 100)
     @Column(nullable = false, unique = true, length = 100)
-    private String login;
+    private String email;
 
     /**
      * Password encrypted
@@ -48,38 +55,27 @@ public class User implements Serializable {
     private User() {
     }
 
-    public User(Instant createdDate, String login, String password) {
-        this.createdDate = createdDate;
-        this.login = login;
-        this.password(password);
+    public User(String email, String newClearPassword) {
+        this.email = email;
+        this.password(newClearPassword);
     }
 
     public Long getId() {
         return id;
     }
 
-    private void setId(Long id) {
-        this.id = id;
-    }
 
     public Instant getCreatedDate() {
         return createdDate;
     }
 
-    @Deprecated
-    /**
-     * This atribute can't be modified
-     */
-    private void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
+
+    public String getEmail() {
+        return email;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -88,18 +84,6 @@ public class User implements Serializable {
 
     protected void setPassword(@NotEmpty @NotNull @Min(6) String password) {
         this.password = password;
-    }
-
-    public User changePassword(String newClearPassword) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-        if (!passwordEncoder.matches(newClearPassword, this.getPassword())) {
-            throw new InvalidPasswordException();
-        }
-
-        this.password(passwordEncoder, newClearPassword);
-
-        return this;
     }
 
     public User password(String newClearPassword) {
@@ -117,15 +101,12 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User that = (User) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(createdDate, that.createdDate) &&
-                Objects.equals(login, that.login) &&
-                Objects.equals(password, that.password);
+        return Objects.equals(email, that.email) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdDate, login, password);
+        return Objects.hash(id, createdDate, email, password);
     }
 
     @Override
@@ -133,7 +114,7 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", createdDate=" + createdDate +
-                ", login='" + login + '\'' +
+                ", login='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

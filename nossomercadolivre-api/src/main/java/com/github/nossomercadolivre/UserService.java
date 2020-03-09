@@ -1,13 +1,11 @@
 package com.github.nossomercadolivre;
 
-import com.github.nossomercadolivre.exception.UsernameAlreadyUsedException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import static com.github.nossomercadolivre.UserDTO.toDTO;
 
-import java.time.Instant;
 import java.util.List;
 
-import static com.github.nossomercadolivre.UserDTO.toDTO;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -20,11 +18,7 @@ public class UserService {
     }
 
     public UserDTO save(UserDTO userDTO) {
-        userRepository.findOneByLogin(userDTO.getLogin()).ifPresent(existingUser -> {
-            throw new UsernameAlreadyUsedException();
-        });
-
-        User userNew = new User(Instant.now(), userDTO.getLogin(), userDTO.getPassword());
+        User userNew = new User(userDTO.getEmail(), userDTO.getPassword());
         User userSaved = userRepository.save(userNew);
         return toDTO(userSaved);
     }

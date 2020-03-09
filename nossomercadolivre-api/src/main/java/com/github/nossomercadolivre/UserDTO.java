@@ -1,9 +1,13 @@
 package com.github.nossomercadolivre;
 
-import javax.validation.constraints.*;
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class UserDTO {
     private Long id;
@@ -11,8 +15,8 @@ public class UserDTO {
     @NotNull
     @NotEmpty
     @Email
-    @Size(min = 5, max = 100)
-    private String login;
+    @Size(max = 100)
+    private String email;
 
     @NotEmpty
     @NotNull
@@ -28,7 +32,7 @@ public class UserDTO {
 
     public UserDTO(User user) {
         this.id = user.getId();
-        this.login = user.getLogin();
+        this.email = user.getEmail();
         this.password = user.getPassword();
     }
 
@@ -50,12 +54,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
