@@ -21,8 +21,6 @@ public class CategoryService {
 
     public CategoryDTO save(CategoryDTO categoryDTO) {
 
-        Optional<Object> one = categoryRepository.findOneByName(categoryDTO.getName());
-
         categoryRepository.findOneByName(categoryDTO.getName()).ifPresent(existingCategory -> {
             throw new CategoryAlreadyUsedException();
         });
