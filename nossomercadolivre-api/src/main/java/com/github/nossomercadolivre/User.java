@@ -48,10 +48,10 @@ public class User {
     @Column(nullable = false, length = 200)
     private String password;
 
-    @Deprecated
     /**
      * Just to frameworks
      */
+    @Deprecated
     private User() {
     }
 
