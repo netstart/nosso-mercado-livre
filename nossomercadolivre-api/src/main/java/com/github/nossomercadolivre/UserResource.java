@@ -1,5 +1,6 @@
 package com.github.nossomercadolivre;
 
+import static com.github.nossomercadolivre.UserDTO.toDTO;
 import static org.springframework.http.ResponseEntity.ok;
 
 import java.util.List;
@@ -17,21 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user")
 public class UserResource {
 
-	private final UserService userService;
 
-	public UserResource(UserService userService) {
-		this.userService = userService;
-	}
+    private static UserRepository userRepository;
 
-	@PostMapping()
-	public ResponseEntity<UserDTO> createCategory(@Valid @RequestBody UserDTO userDTO) {
-		UserDTO userSaved = userService.save(userDTO);
-		return ok(userSaved);
-	}
+    public UserResource(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-	@GetMapping()
-	public ResponseEntity<List<UserDTO>> getAll() {
-		List<UserDTO> page = userService.findAll();
-		return ok(page);
-	}
+    @PostMapping()
+    public ResponseEntity<UserDTO> createCategory(@Valid @RequestBody UserDTO userDTO) {
+        User userNew = new User(userDTO.email, userDTO.password);
+        User userSaved = userRepository.save(userNew);
+        return ok(toDTO(userSaved));
+    }
 }

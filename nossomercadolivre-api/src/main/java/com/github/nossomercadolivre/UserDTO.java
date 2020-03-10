@@ -1,9 +1,5 @@
 package com.github.nossomercadolivre;
 
-import static java.util.stream.Collectors.toList;
-
-import java.util.List;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,12 +12,12 @@ public class UserDTO {
     @NotEmpty
     @Email
     @Size(max = 100)
-    private String email;
+    public String email;
 
     @NotEmpty
     @NotNull
     @Size(min = 6, max = 200)
-    private String password;
+    public String password;
 
     @Deprecated
     /**
@@ -40,18 +36,5 @@ public class UserDTO {
         return new UserDTO(user);
     }
 
-    public static List<UserDTO> toDTO(List<User> users) {
-        return users.stream()
-                .map(UserDTO::new)
-                .collect(toList());
-    }
 
-    public String getEmail() {
-        return email;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
 }

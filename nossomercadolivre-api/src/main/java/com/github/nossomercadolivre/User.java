@@ -69,7 +69,6 @@ public class User {
         return createdDate;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -86,11 +85,20 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * @param newClearPassword without encoder or any encrypt
+     * @return
+     */
     public User password(String newClearPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return password(passwordEncoder, newClearPassword);
     }
 
+    /**
+     * @param passwordEncoder
+     * @param newClearPassword without encoder or any encrypt
+     * @return
+     */
     public User password(BCryptPasswordEncoder passwordEncoder, String newClearPassword) {
         this.setPassword(passwordEncoder.encode(newClearPassword));
         return this;
@@ -101,7 +109,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User that = (User) o;
-        return Objects.equals(email, that.email) ;
+        return Objects.equals(email, that.email);
     }
 
     @Override
