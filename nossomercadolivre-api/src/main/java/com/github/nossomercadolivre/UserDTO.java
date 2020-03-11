@@ -36,5 +36,9 @@ public class UserDTO {
         return new UserDTO(user);
     }
 
+    public User toModel() {
+        return new User(this.email, this.password);
+    }
+
 
 }

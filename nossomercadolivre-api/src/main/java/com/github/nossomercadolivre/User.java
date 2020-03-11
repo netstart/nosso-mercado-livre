@@ -10,11 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -32,8 +28,7 @@ public class User {
     @Column(updatable = false, nullable = false)
     private Instant createdDate;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     @Email
     @Size(max = 100)
     @Column(nullable = false, unique = true, length = 100)
@@ -42,8 +37,7 @@ public class User {
     /**
      * Password encrypted
      */
-    @NotEmpty
-    @NotNull
+    @NotBlank
     @Size(min = 6, max = 200)
     @Column(nullable = false, length = 200)
     private String password;
@@ -55,6 +49,11 @@ public class User {
     private User() {
     }
 
+    /**
+     *
+     * @param email email used to identify user
+     * @param newClearPassword password without any encryption
+     */
     public User(String email, String newClearPassword) {
         this.email = email;
         this.password(newClearPassword);
@@ -64,7 +63,6 @@ public class User {
         return id;
     }
 
-
     public Instant getCreatedDate() {
         return createdDate;
     }
@@ -73,16 +71,15 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    /**
+     * @return encrypted password
+     */
     public String getPassword() {
         return password;
     }
 
-    protected void setPassword(@NotEmpty @NotNull @Min(6) String password) {
-        this.password = password;
+    private void setPassword(@NotEmpty @NotNull @Min(6) String encryptedPassword) {
+        this.password = encryptedPassword;
     }
 
     /**
@@ -99,7 +96,7 @@ public class User {
      * @param newClearPassword without encoder or any encrypt
      * @return
      */
-    public User password(BCryptPasswordEncoder passwordEncoder, String newClearPassword) {
+    private User password(BCryptPasswordEncoder passwordEncoder, String newClearPassword) {
         this.setPassword(passwordEncoder.encode(newClearPassword));
         return this;
     }
