@@ -17,14 +17,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @CreatedDate
     @Column(updatable = false, nullable = false)
     private Instant createdDate;
 
@@ -57,14 +55,11 @@ public class User {
     public User(String email, String newClearPassword) {
         this.email = email;
         this.password(newClearPassword);
+        this.createdDate = Instant.now();
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Instant getCreatedDate() {
-        return createdDate;
     }
 
     public String getEmail() {
@@ -86,17 +81,8 @@ public class User {
      * @param newClearPassword without encoder or any encrypt
      * @return
      */
-    public User password(String newClearPassword) {
+    private User password(String newClearPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return password(passwordEncoder, newClearPassword);
-    }
-
-    /**
-     * @param passwordEncoder
-     * @param newClearPassword without encoder or any encrypt
-     * @return
-     */
-    private User password(BCryptPasswordEncoder passwordEncoder, String newClearPassword) {
         this.setPassword(passwordEncoder.encode(newClearPassword));
         return this;
     }
