@@ -2,12 +2,14 @@ package com.github.nossomercadolivre;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-public class NossomercadolivreApiApplication {
+@EnableJpaAuditing
+public class NossoMercadoLivreApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NossomercadolivreApiApplication.class, args);
+		SpringApplication.run(NossoMercadoLivreApiApplication.class, args);
 	}
 
 }

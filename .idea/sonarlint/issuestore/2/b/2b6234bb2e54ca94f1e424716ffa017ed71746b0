@@ -1,0 +1,6 @@
+
+Lsquid:S1133/"5Do not forget to remove this deprecated code someday.(Û†ó¼
+Psquid:MissingDeprecatedCheck/"(Add the missing @deprecated Javadoc tag.(Û†ó¼
+Tsquid:UnusedPrivateMethod;"*Remove this unused private "setId" method.(ø†Ôµşÿÿÿÿ
+Usquid:MissingDeprecatedCheckG"(Add the missing @deprecated Javadoc tag.(Áš’ùÿÿÿÿ
+Qsquid:S1133G"5Do not forget to remove this deprecated code someday.(Áš’ùÿÿÿÿ
