@@ -24,7 +24,7 @@ public class UniqueUserEmailValidator implements ConstraintValidator<UniqueUserE
         return isValid(email);
     }
 
-    public boolean isValid(String email) {
+    private boolean isValid(String email) {
         return !isNull(email) && !userRepository.findOneByEmail(email).isPresent();
     }
 }
