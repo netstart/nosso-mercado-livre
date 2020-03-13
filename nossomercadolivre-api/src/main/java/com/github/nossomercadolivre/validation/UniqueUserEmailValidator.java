@@ -1,14 +1,12 @@
 package com.github.nossomercadolivre.validation;
 
 import com.github.nossomercadolivre.UserRepository;
-import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import static java.util.Objects.isNull;
 
-@Component
 public class UniqueUserEmailValidator implements ConstraintValidator<UniqueUserEmail, String> {
 
     private UserRepository userRepository;
