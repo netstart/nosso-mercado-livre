@@ -23,7 +23,7 @@ public class UserResource {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDTO> createCategory(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> newUser(@Valid @RequestBody UserDTO userDTO) {
         User userSaved = userRepository.save(userDTO.toModel());
         return ok(toDTO(userSaved));
     }

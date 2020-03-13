@@ -1,5 +1,7 @@
 package com.github.nossomercadolivre;
 
+import com.github.nossomercadolivre.validation.UniqueUserEmail;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -12,6 +14,7 @@ public class UserDTO {
     @NotEmpty
     @Email
     @Size(max = 100)
+    @UniqueUserEmail
     public String email;
 
     @NotEmpty
