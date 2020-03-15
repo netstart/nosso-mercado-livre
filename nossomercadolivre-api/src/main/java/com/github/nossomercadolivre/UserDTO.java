@@ -1,5 +1,6 @@
 package com.github.nossomercadolivre;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.nossomercadolivre.validation.UniqueUserEmail;
 
 import javax.validation.constraints.Email;
@@ -7,6 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
+@JsonInclude(NON_NULL)
 public class UserDTO {
 
     private Long id;
