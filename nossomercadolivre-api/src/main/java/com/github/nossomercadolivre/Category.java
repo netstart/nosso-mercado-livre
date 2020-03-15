@@ -23,7 +23,7 @@ public class Category {
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
-    @JoinColumn(name = "ID_CATEGORY_FATHER", referencedColumnName = "ID_CATEGORY")
+    @JoinColumn(name = "ID_CATEGORY_MOTHER", referencedColumnName = "ID_CATEGORY")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Category categoryMother;
 
