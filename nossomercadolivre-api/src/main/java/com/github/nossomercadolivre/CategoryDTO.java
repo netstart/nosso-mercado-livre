@@ -3,8 +3,7 @@ package com.github.nossomercadolivre;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.nossomercadolivre.validation.UniqueNameCategory;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
@@ -14,8 +13,7 @@ import static java.util.Objects.isNull;
 public class CategoryDTO {
     public Long id;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     @Size(max = 100)
     @UniqueNameCategory
     public String name;
