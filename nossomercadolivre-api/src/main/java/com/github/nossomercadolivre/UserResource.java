@@ -15,7 +15,6 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/api/user")
 public class UserResource {
 
-
     private final UserRepository userRepository;
 
     public UserResource(final UserRepository userRepository) {
