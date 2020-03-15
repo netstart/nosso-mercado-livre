@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UserDTO {
+
     private Long id;
 
     @NotNull
@@ -22,20 +23,22 @@ public class UserDTO {
     @Size(min = 6, max = 200)
     public String password;
 
-    @Deprecated
+
+
     /**
      * For frameworks, don't use it
      */
+    @Deprecated
     private UserDTO() {
     }
 
-    public UserDTO(User user) {
+    public UserDTO(final User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
     }
 
-    public static UserDTO toDTO(User user) {
+    public static UserDTO toDTO(final User user) {
         return new UserDTO(user);
     }
 

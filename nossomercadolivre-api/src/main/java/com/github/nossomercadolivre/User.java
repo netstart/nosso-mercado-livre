@@ -1,20 +1,16 @@
 package com.github.nossomercadolivre;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-import java.time.Instant;
-import java.util.Objects;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
+import java.time.Instant;
+import java.util.Objects;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 public class User {
@@ -44,15 +40,14 @@ public class User {
      * Just to frameworks
      */
     @Deprecated
-    private User() {
+    protected User() {
     }
 
     /**
-     *
-     * @param email email used to identify user
+     * @param email            email used to identify user
      * @param newClearPassword password without any encryption
      */
-    public User(String email, String newClearPassword) {
+    public User(final String email, final String newClearPassword) {
         this.email = email;
         this.password(newClearPassword);
         this.createdDate = Instant.now();
@@ -73,7 +68,7 @@ public class User {
         return password;
     }
 
-    private void setPassword(@NotEmpty @NotNull @Min(6) String encryptedPassword) {
+    private void setPassword(@NotEmpty @NotNull @Min(6) final String encryptedPassword) {
         this.password = encryptedPassword;
     }
 
@@ -81,7 +76,7 @@ public class User {
      * @param newClearPassword without encoder or any encrypt
      * @return
      */
-    private User password(String newClearPassword) {
+    private User password(final String newClearPassword) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.setPassword(passwordEncoder.encode(newClearPassword));
         return this;

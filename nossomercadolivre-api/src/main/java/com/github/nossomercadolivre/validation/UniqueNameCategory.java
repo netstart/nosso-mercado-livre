@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueUserEmailValidator.class)
-public @interface UniqueUserEmail {
-    String message() default "{com.github.nossomercadolivre.uniqueuseremail.message}";
+@Constraint(validatedBy = UniqueNameCategoryValidator.class)
+public @interface UniqueNameCategory {
+    String message() default "{com.github.nossomercadolivre.uniquenamecategory.message}";
 
     Class<?>[] groups() default {};
 
