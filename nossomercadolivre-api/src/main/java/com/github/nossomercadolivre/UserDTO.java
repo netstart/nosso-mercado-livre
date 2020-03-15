@@ -13,7 +13,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 public class UserDTO {
 
-    private Long id;
+    public Long id;
 
     @NotNull
     @NotEmpty
