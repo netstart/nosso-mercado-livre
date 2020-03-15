@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.nossomercadolivre.validation.UniqueUserEmail;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
@@ -15,18 +14,15 @@ public class UserDTO {
 
     public Long id;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank
     @Email
     @Size(max = 100)
     @UniqueUserEmail
     public String email;
 
-    @NotEmpty
-    @NotNull
+    @NotBlank
     @Size(min = 6, max = 200)
     public String password;
-
 
 
     /**
