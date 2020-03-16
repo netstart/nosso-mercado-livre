@@ -30,7 +30,7 @@ public class CategoryDTO {
     public CategoryDTO(final Category category) {
         this.id = category.getId();
         this.name = category.getName();
-        if (!isNull(this.categoryMother)) {
+        if (!isNull(this.categoryMother) && !isNull(this.categoryMother.id)) {
             this.categoryMother = new CategoryDTO(category.getCategoryMother());
         }
     }
