@@ -41,7 +41,7 @@ public class CategoryResource {
 
             Category categorySaved = categoryRepository.save(category);
             return ok(toDTO(categorySaved));
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             log.error("Error on crate new category", e);
             return new ResponseEntity(e, BAD_REQUEST);
         }

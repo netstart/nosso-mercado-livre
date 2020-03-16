@@ -10,12 +10,11 @@ import java.util.Objects;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table
 public class Category {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID_CATEGORY")
+    @Column
     private Long id;
 
     @NotBlank
@@ -24,7 +23,7 @@ public class Category {
     private String name;
 
     @JoinColumn(name = "ID_CATEGORY_MOTHER", referencedColumnName = "ID_CATEGORY")
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category categoryMother;
 
     /**

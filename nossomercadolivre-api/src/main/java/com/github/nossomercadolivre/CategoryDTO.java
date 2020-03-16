@@ -30,7 +30,7 @@ public class CategoryDTO {
     public CategoryDTO(final Category category) {
         this.id = category.getId();
         this.name = category.getName();
-        if (hasObjectCategoryMother()) {
+        if (!isNull(this.categoryMother)) {
             this.categoryMother = new CategoryDTO(category.getCategoryMother());
         }
     }
@@ -44,19 +44,11 @@ public class CategoryDTO {
     }
 
     public Long idCategoryMother() {
-        if (hasObjectCategoryMother() && hasIdOfCategoryMother()) {
+        if (!isNull(this.categoryMother) && !isNull(this.categoryMother.id)) {
             return categoryMother.id;
         }
 
         return 0L;
-    }
-
-    private boolean hasObjectCategoryMother() {
-        return !isNull(this.categoryMother);
-    }
-
-    private boolean hasIdOfCategoryMother() {
-        return !isNull(this.categoryMother.id);
     }
 
 }
