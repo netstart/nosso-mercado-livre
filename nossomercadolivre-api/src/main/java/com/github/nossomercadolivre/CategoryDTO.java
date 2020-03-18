@@ -5,9 +5,10 @@ import com.github.nossomercadolivre.validation.UniqueNameCategory;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Optional;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-import static java.util.Objects.isNull;
+import static java.util.Optional.ofNullable;
 
 @JsonInclude(NON_NULL)
 public class CategoryDTO {
@@ -18,7 +19,7 @@ public class CategoryDTO {
     @UniqueNameCategory
     public String name;
 
-    public CategoryDTO categoryMother;
+    private CategoryDTO categoryMother;
 
     /**
      * For frameworks, don't use it
@@ -30,25 +31,25 @@ public class CategoryDTO {
     public CategoryDTO(final Category category) {
         this.id = category.getId();
         this.name = category.getName();
-        if (!isNull(this.categoryMother) && !isNull(this.categoryMother.id)) {
-            this.categoryMother = new CategoryDTO(category.getCategoryMother());
-        }
+
+        category.getCategoryMother()
+                .ifPresent(mother -> this.categoryMother = new CategoryDTO(mother));
     }
 
     public static CategoryDTO toDTO(final Category category) {
         return new CategoryDTO(category);
     }
 
-    public Category toModel() {
-        return new Category(this.name);
+    public Optional<CategoryDTO> getCategoryMother() {
+        return ofNullable(categoryMother);
     }
 
-    public Long idCategoryMother() {
-        if (!isNull(this.categoryMother) && !isNull(this.categoryMother.id)) {
-            return categoryMother.id;
-        }
+    public Category toModel(final CategoryRepository categoryRepository) {
+        Category category = new Category(id, name);
 
-        return 0L;
+        getCategoryMother().ifPresent(mother ->
+                categoryRepository.findById(mother.id).ifPresent(category::setCategoryMother));
+
+        return categoryRepository.save(category);
     }
-
 }

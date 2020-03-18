@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import static com.github.nossomercadolivre.CategoryDTO.toDTO;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -35,17 +34,7 @@ public class CategoryResource {
     })
     @PostMapping()
     public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody final CategoryDTO categoryDTO) {
-        try {
-            Category category = categoryDTO.toModel();
-            categoryRepository.findById(categoryDTO.idCategoryMother()).ifPresent(category::setCategoryMother);
-
-            Category categorySaved = categoryRepository.save(category);
-            return ok(toDTO(categorySaved));
-        } catch (IllegalArgumentException e) {
-            log.error("Error on crate new category", e);
-            return new ResponseEntity(e, BAD_REQUEST);
-        }
-
+        return ok(toDTO(categoryDTO.toModel(categoryRepository)));
     }
 
 }

@@ -2,11 +2,11 @@ package com.github.nossomercadolivre;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
+import java.util.Optional;
 
+import static java.util.Optional.ofNullable;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -22,7 +22,7 @@ public class Category {
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
-    @JoinColumn(name = "ID_CATEGORY_MOTHER", referencedColumnName = "ID_CATEGORY")
+    @JoinColumn(name = "ID_CATEGORY_MOTHER", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Category categoryMother;
 
@@ -32,7 +32,8 @@ public class Category {
     protected Category() {
     }
 
-    public Category(@NotNull @NotEmpty @Size(max = 100) final String name) {
+    public Category(final Long id, final String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -44,11 +45,11 @@ public class Category {
         return name;
     }
 
-    public Category getCategoryMother() {
-        return categoryMother;
+    public Optional<Category> getCategoryMother() {
+        return ofNullable(categoryMother);
     }
 
-    public void setCategoryMother(final Category categoryMother) {
+    public void setCategoryMother(Category categoryMother) {
         this.categoryMother = categoryMother;
     }
 
@@ -73,4 +74,5 @@ public class Category {
                 ", categoryMother=" + categoryMother +
                 '}';
     }
+
 }

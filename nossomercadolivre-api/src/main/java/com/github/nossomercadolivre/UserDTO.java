@@ -12,8 +12,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 public class UserDTO {
 
-    public Long id;
-
     @NotBlank
     @Email
     @Size(max = 100)
@@ -33,7 +31,6 @@ public class UserDTO {
     }
 
     public UserDTO(final User user) {
-        this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
     }
