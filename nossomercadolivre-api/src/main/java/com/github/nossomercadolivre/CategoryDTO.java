@@ -36,6 +36,7 @@ public class CategoryDTO {
                 .ifPresent(mother -> this.categoryMother = new CategoryDTO(mother));
     }
 
+
     public static CategoryDTO toDTO(final Category category) {
         return new CategoryDTO(category);
     }
@@ -44,8 +45,9 @@ public class CategoryDTO {
         return ofNullable(categoryMother);
     }
 
-    public Category toModel(final CategoryRepository categoryRepository) {
-        Category category = new Category(id, name);
+    public Category save(final CategoryRepository categoryRepository) {
+        Category category = new Category(name);
+        category.setId(id);
 
         getCategoryMother().ifPresent(mother ->
                 categoryRepository.findById(mother.id).ifPresent(category::setCategoryMother));

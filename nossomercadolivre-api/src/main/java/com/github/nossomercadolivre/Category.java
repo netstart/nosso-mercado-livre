@@ -1,5 +1,7 @@
 package com.github.nossomercadolivre;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -32,13 +34,16 @@ public class Category {
     protected Category() {
     }
 
-    public Category(final Long id, final String name) {
-        this.id = id;
+    public Category(final String name) {
         this.name = name;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getName() {
@@ -50,6 +55,8 @@ public class Category {
     }
 
     public void setCategoryMother(Category categoryMother) {
+        // Experimentando  https://github.com/netstart/nosso-mercado-livre/pull/6
+        Assert.notNull(categoryMother, "Não pode definir uma categoria mãe nula");
         this.categoryMother = categoryMother;
     }
 
