@@ -42,10 +42,6 @@ public class Category {
         return id;
     }
 
-    public void setId(Long id){
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -56,7 +52,7 @@ public class Category {
 
     public void setCategoryMother(Category categoryMother) {
         // Experimentando  https://github.com/netstart/nosso-mercado-livre/pull/6
-        Assert.notNull(categoryMother, "Não pode definir uma categoria mãe nula");
+        Assert.notNull(categoryMother, "Please, inform not null mother category");
         this.categoryMother = categoryMother;
     }
 

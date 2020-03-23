@@ -45,13 +45,10 @@ public class CategoryDTO {
         return ofNullable(categoryMother);
     }
 
-    public Category save(final CategoryRepository categoryRepository) {
+    public Category toModel(final FindById<Category, Long> categoryRepository) {
         Category category = new Category(name);
-        category.setId(id);
-
         getCategoryMother().ifPresent(mother ->
                 categoryRepository.findById(mother.id).ifPresent(category::setCategoryMother));
-
-        return categoryRepository.save(category);
+        return category;
     }
 }

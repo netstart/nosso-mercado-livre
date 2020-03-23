@@ -34,7 +34,8 @@ public class CategoryResource {
     })
     @PostMapping()
     public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody final CategoryDTO categoryDTO) {
-        return ok(toDTO(categoryDTO.save(categoryRepository)));
+        Category categorySaved = categoryRepository.save(categoryDTO.toModel(categoryRepository));
+        return ok(toDTO(categorySaved));
     }
 
 }
