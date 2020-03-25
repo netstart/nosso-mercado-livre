@@ -1,5 +1,5 @@
 
-##### URLs for your convenience
+##### URLs for our convenience
 
 Url to verify: http://localhost/api/ping
 
@@ -14,3 +14,4 @@ In field JDBC URL inform this:
 ```jdbc:h2:mem:meumercadolivre;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE```
 ---
 
+Trello: https://trello.com/c/v7f1OUlW/14-cadastro-de-categorias

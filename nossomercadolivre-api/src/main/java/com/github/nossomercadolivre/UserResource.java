@@ -15,15 +15,14 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/api/user")
 public class UserResource {
 
+    private final UserRepository userRepository;
 
-    private static UserRepository userRepository;
-
-    public UserResource(UserRepository userRepository) {
+    public UserResource(final UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @PostMapping()
-    public ResponseEntity<UserDTO> newUser(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> newUser(@Valid @RequestBody final UserDTO userDTO) {
         User userSaved = userRepository.save(userDTO.toModel());
         return ok(toDTO(userSaved));
     }

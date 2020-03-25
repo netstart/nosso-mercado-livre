@@ -9,13 +9,10 @@ import static java.util.Objects.isNull;
 
 public class UniqueUserEmailValidator implements ConstraintValidator<UniqueUserEmail, String> {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UniqueUserEmailValidator(UserRepository userRepository) {
+    public UniqueUserEmailValidator(final UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    public void initialize(UniqueUserEmail constraint) {
     }
 
     public boolean isValid(String email, ConstraintValidatorContext context) {

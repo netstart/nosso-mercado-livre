@@ -6,7 +6,7 @@
 logging:
   level:
     com.github.nossomercadolivre: DEBUG
-    
+
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource

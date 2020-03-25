@@ -1,41 +1,41 @@
 package com.github.nossomercadolivre;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.nossomercadolivre.validation.UniqueUserEmail;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class UserDTO {
-    private Long id;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-    @NotNull
-    @NotEmpty
+@JsonInclude(NON_NULL)
+public class UserDTO {
+
+    @NotBlank
     @Email
     @Size(max = 100)
     @UniqueUserEmail
     public String email;
 
-    @NotEmpty
-    @NotNull
+    @NotBlank
     @Size(min = 6, max = 200)
     public String password;
 
-    @Deprecated
+
     /**
      * For frameworks, don't use it
      */
+    @Deprecated
     private UserDTO() {
     }
 
-    public UserDTO(User user) {
-        this.id = user.getId();
+    public UserDTO(final User user) {
         this.email = user.getEmail();
         this.password = user.getPassword();
     }
 
-    public static UserDTO toDTO(User user) {
+    public static UserDTO toDTO(final User user) {
         return new UserDTO(user);
     }
 
