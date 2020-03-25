@@ -34,7 +34,7 @@ public class CategoryResource {
     })
     @PostMapping()
     public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody final CategoryDTO categoryDTO) {
-        Category categorySaved = categoryRepository.save(categoryDTO.toModel(categoryRepository));
+        Category categorySaved = categoryRepository.save(categoryDTO.toModel(categoryRepository::findById));
         return ok(toDTO(categorySaved));
     }
 
