@@ -1,5 +1,8 @@
 package com.github.nossomercadolivre;
 
+import com.google.common.collect.Lists;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Column;
@@ -8,12 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -53,10 +57,6 @@ public class User {
         this.createdDate = Instant.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -83,6 +83,36 @@ public class User {
     }
 
     @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Lists.newArrayList();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -103,5 +133,9 @@ public class User {
                 ", login='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public Long getId() {
+        return this.id;
     }
 }
