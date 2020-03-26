@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.github.nossomercadolivre.UserDTO.toDTO;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -22,8 +21,8 @@ public class UserResource {
     }
 
     @PostMapping()
-    public ResponseEntity<UserDTO> newUser(@Valid @RequestBody final UserDTO userDTO) {
+    public ResponseEntity<UserDtoOut> newUser(@Valid @RequestBody final UserDtoIn userDTO) {
         User userSaved = userRepository.save(userDTO.toModel());
-        return ok(toDTO(userSaved));
+        return ok(new UserDtoOut(userSaved));
     }
 }

@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonInclude(NON_NULL)
-public class UserDTO {
+public class UserDtoIn {
 
     @NotBlank
     @Email
@@ -27,16 +27,7 @@ public class UserDTO {
      * For frameworks, don't use it
      */
     @Deprecated
-    private UserDTO() {
-    }
-
-    public UserDTO(final User user) {
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-    }
-
-    public static UserDTO toDTO(final User user) {
-        return new UserDTO(user);
+    private UserDtoIn() {
     }
 
     public User toModel() {
