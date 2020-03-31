@@ -14,7 +14,7 @@ public class ProductDtoIn {
     public String name;
 
     @NotNull
-    @DecimalMin(value = "1.0", inclusive = true)
+    @DecimalMin(value = "0.1", inclusive = true)
     public BigDecimal value;
 
     @NotNull

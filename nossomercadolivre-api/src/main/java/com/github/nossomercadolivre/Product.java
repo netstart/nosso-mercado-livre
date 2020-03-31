@@ -20,7 +20,7 @@ public class Product {
     private String name;
 
     @NotNull
-    @DecimalMin(value = "1.0", inclusive = true)
+    @DecimalMin(value = "0.1", inclusive = true)
     private BigDecimal value;
 
     @NotNull
