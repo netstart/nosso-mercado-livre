@@ -11,19 +11,19 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class ProductDtoIn {
 
     @NotBlank
-    private String name;
+    public String name;
 
     @NotNull
     @DecimalMin(value = "1.0", inclusive = true)
-    private BigDecimal value;
+    public BigDecimal value;
 
     @NotNull
     @Min(1)
-    private Long quantityAvaiable;
+    public Long quantityAvaiable;
 
     @NotBlank
     @Size(max = 1000)
-    private String markdownDescription;
+    public String markdownDescription;
 
     @Deprecated
     private ProductDtoIn() {

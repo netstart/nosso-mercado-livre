@@ -8,13 +8,13 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonInclude(NON_NULL)
 public class ProductDtoOut {
-    private Long id;
+    public Long id;
 
-    private String name;
+    public String name;
 
-    private BigDecimal value;
+    public BigDecimal value;
 
-    private Long quantityAvaiable;
+    public Long quantityAvaiable;
 
     public ProductDtoOut(Product product) {
         this.id = product.getId();
