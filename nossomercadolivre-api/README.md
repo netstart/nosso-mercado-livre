@@ -12,4 +12,4 @@ In field JDBC URL inform this:
 ```jdbc:h2:mem:meumercadolivre;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE```
 ---
 
-https://trello.com/b/ntE2tuml/nosso-mercado-livre
+Trello: https://trello.com/b/ntE2tuml/nosso-mercado-livre
